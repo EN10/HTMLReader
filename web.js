@@ -1,18 +1,18 @@
 var express = require("express");
- var app = express();
+var request = require('request'); // https://github.com/request/request
+var cheerio = require('cheerio'); // https://github.com/cheeriojs/cheerio
 
- /* serves main page */
- app.get("./", function(req, res) {
-    res.sendfile('index.html')
+var app = express();
+app.get('/', function(req, res){
+    request('https://news.google.co.uk', function (error, response, body){
+        var $ = cheerio.load(body);
+        var html = "";
+        for (var i = 0; i < $('.titletext').get().length; i++)   {
+            html += $('.titletext').slice(i).eq(0).text()+'<p>'; }
+        res.send(html);
  });
+});
 
- /* serves all the static files */
- app.get(/^(.+)$/, function(req, res){ 
-     console.log('static file request : ' + req.params);
-     res.sendfile(__dirname + req.params[0]); 
- });
-
- var port = process.env.PORT || 80;
- app.listen(port, function() {
-   console.log("Listening on " + port);
- });
+app.listen(process.env.PORT, function(){
+  console.log("Listening on " + process.env.PORT);
+});
