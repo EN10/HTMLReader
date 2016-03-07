@@ -1,3 +1,0 @@
-# HTMLReader
-
-Parse HTML
