@@ -10,8 +10,8 @@ app.get('/', function(req, res) {
         for (var i=0; i<$('.titletext').get().length; i++) {
             html += $('.titletext').eq(i).text()+'<p>'; }
         res.send(html);
-    });
-});
+    }); // request gets html, cheerio parses to find title tags
+});     // express sends concatenated titles
 
 app.listen(process.env.PORT, function(){
     console.log("Listening on " + process.env.PORT);
