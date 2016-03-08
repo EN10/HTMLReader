@@ -7,9 +7,9 @@ app.get('/', function(req, res) {
     request('https://news.google.co.uk', function (error, response, body) {
         var $ = cheerio.load(body);
         var html = "";
-        if (req.query.q == ',' ) {
+        if (req.query.q == '~' ) {
             for (var i=0; i<$('.titletext').get().length; i++) {
-                html += $('.titletext').eq(i).text()+','; }
+                html += $('.titletext').eq(i).text()+'~'; }
         }
         else {   
             for (var i=0; i<$('.titletext').get().length; i++) {
